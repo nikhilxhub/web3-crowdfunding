@@ -2,7 +2,11 @@ import React from 'react'
 
 const LandingPage = () => {
   return (
-    <div>LandingPage</div>
+    <div>
+      LandingPage
+
+      {/* place button to go to main page */}
+    </div>
   )
 }
 
