@@ -8,7 +8,7 @@ import { client } from "../client";
 
 
 
-export const NavBar = () => {
+export const NavBar = ({ onCreateClick }: { onCreateClick: () => void }) => {
 
 
 
@@ -19,6 +19,8 @@ export const NavBar = () => {
         <Crown className='size-10'/>CrowFund
       </div>
       <ConnectButton client={client} />
+      {/* onClick in main page section create Campaign card should come */}
+      <Button onClick={onCreateClick}>Create Campaign</Button>
       
 
       {/* wallet connect button */}
