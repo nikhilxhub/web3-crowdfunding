@@ -3,7 +3,7 @@ pragma solidity ^0.8.13;
 
 contract CrowdFunding {
     struct Campaign {
-        address ownder;
+        address owner;
         string title;
         string description;
         uint256 target;
@@ -28,13 +28,21 @@ contract CrowdFunding {
     ) public returns (uint256) {
         Campaign storage campaign = campaigns[numberOfCampaigns];
 
+        require(_deadline < block.timestamp, "The deadline should be a date in the future.");
 
+        campaign.owner = _owner;
+        campaign.title = _title;
+        campaign.description = _description;
+        campaign.target = _target;
+        campaign.deadline = _deadline;
+        campaign.amountCollected = 0;
+        campaign.image = _image;
 
 
         numberOfCampaigns++;
 
         // newly created campaign is stored at index
-        return numberOfCampaigns;
+        return numberOfCampaigns-1;
     }
 
     function donateToCampaign(uint256 _id) public payable {
@@ -44,6 +52,16 @@ contract CrowdFunding {
 
 
         // donate to campaign
+        campaign.donators.push(msg.sender);
+        campaign.donations.push(amount);
+
+        (bool sent,) = payable(campaign.owner).call{value: amount}("");
+
+        if(sent){
+            campaign.amountCollected = campaign.amountCollected + amount;
+        }
+
+
 
 
     }
@@ -56,7 +74,11 @@ contract CrowdFunding {
     function getCampaigns() public view returns (Campaign[] memory){
         Campaign[] memory allCampaigns = new Campaign[](numberOfCampaigns);
 
+        for(uint i = 0; i < numberOfCampaigns; i++){
+            Campaign storage item = campaigns[i];
 
+            allCampaigns[i] = item;
+        }
 
         return allCampaigns;
 
