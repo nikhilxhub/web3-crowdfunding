@@ -11,6 +11,9 @@ import {
 
 const Main = ({ showForm }: { showForm: boolean }) => {
   return (
+
+
+
     <div className="flex justify-center px-4 sm:px-10 md:px-20 py-10 min-h-screen">
       {showForm ? (
         <Card className="w-full max-w-4xl rounded-xl shadow-lg">
@@ -31,6 +34,9 @@ const Main = ({ showForm }: { showForm: boolean }) => {
         </Card>
       ) : (
         <div className="text-center text-lg text-muted-foreground">
+
+
+          {/* nrml component */}
           👋 Welcome to CrowFund — click "Create Campaign" to get started!
         </div>
       )}

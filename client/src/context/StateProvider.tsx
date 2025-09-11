@@ -1,6 +1,7 @@
 import React, { createContext, useContext, type ReactNode } from "react";
 import { useActiveAccount, useWalletBalance } from "thirdweb/react";
 import { client, chain } from "../client";
+import { getContract } from "thirdweb";
 
 interface StateContextType {
   address?: string;
@@ -17,6 +18,26 @@ export const StateContextProvider = ({ children }: { children: ReactNode }) => {
     chain,
     address: account?.address,
   });
+
+
+  const contract = getContract({
+    client,
+    address:".....", //will update addrees
+    chain:chain
+  });
+
+  
+
+  // we need to write contract
+
+
+
+
+  // we need to read contract
+
+
+
+  
 
   return (
     <StateContext.Provider
