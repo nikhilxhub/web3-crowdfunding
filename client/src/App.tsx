@@ -5,6 +5,8 @@ import { NavBar } from "./components/NavBar"
 import { ThemeProvider } from "@/components/ui/theme-provider"
 import { ThirdwebProvider } from "thirdweb/react"
 import { useState } from "react"
+import { StateContextProvider } from "./context/StateProvider"
+import { Toaster } from "sonner"
 
 
 
@@ -13,7 +15,9 @@ function App() {
 
   return (
     <ThirdwebProvider>
+      <StateContextProvider>
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <Toaster />
     <div>
        <NavBar onCreateClick={() => setShowForm(true)} />
       
@@ -29,6 +33,7 @@ function App() {
     </div>
 
     </ThemeProvider>
+    </StateContextProvider>
 
     </ThirdwebProvider>
 
