@@ -1,14 +1,7 @@
 // Main.tsx
 import { CampaignForm } from "@/components/CreateCampaignForm";
 import DisplayCampaign from "@/components/DisplayCampaign";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
+
 
 const Main = () => {
 
@@ -17,23 +10,16 @@ const Main = () => {
   return (
 
 
+<div className="px-4 sm:px-10 md:px-20 py-10 min-h-screen">
+      {/* Welcome message centered */}
+      <div className="text-center text-lg text-muted-foreground mb-10">
+        👋 Welcome to CrowFund — click "Create Campaign" to start your own Campaign!
+      </div>
 
-    <div className="flex justify-center px-4 sm:px-10 md:px-20 py-10 min-h-screen">
-      
-        <div className="text-center text-lg text-muted-foreground">
-
-
-          {/* nrml component */}
-          👋 Welcome to CrowFund — click "Create Campaign" to  start your own Campaign!
-        </div>
-        <div>
-
-          <DisplayCampaign />
-
-        </div>
-
-      
+      {/* Campaigns section */}
+      <DisplayCampaign />
     </div>
+
   );
 };
 
