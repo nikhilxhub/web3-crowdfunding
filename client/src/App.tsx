@@ -7,11 +7,12 @@ import { ThirdwebProvider } from "thirdweb/react"
 import { useState } from "react"
 import { StateContextProvider } from "./context/StateProvider"
 import { Toaster } from "sonner"
+import CreateCampaign from "./pages/CreateCampaign"
 
 
 
 function App() {
-  const [showForm, setShowForm] = useState(false);
+
 
   return (
     <ThirdwebProvider>
@@ -19,13 +20,14 @@ function App() {
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <Toaster />
     <div>
-       <NavBar onCreateClick={() => setShowForm(true)} />
       
 
      <BrowserRouter>
+       <NavBar />
           <Routes>
             <Route path="/" element={<LandingPage/>} />
-            <Route path="/main" element={<Main showForm={showForm} />} />
+            <Route path="/main" element={<Main />} />
+            <Route path="/createCampaign" element={<CreateCampaign />} />
 
           </Routes>
       </BrowserRouter>

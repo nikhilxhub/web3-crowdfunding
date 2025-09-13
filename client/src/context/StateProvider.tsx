@@ -22,9 +22,10 @@ export const StateContextProvider = ({ children }: { children: ReactNode }) => {
 
   const contract = getContract({
     client,
-    address:".....", //will update addrees
+    address:"0x...", //will update addrees
     chain:chain
   });
+
 
   
 

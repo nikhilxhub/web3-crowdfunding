@@ -46,6 +46,10 @@ export function CampaignForm() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log("Form submitted:", values);
+
+    // complete this
+
+    
   }
 
   return (

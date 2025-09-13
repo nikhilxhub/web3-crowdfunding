@@ -6,17 +6,20 @@ import { Button } from "./ui/button";
 import { toast } from "sonner";
 import { client } from "../client";
 import { useStateContext } from "@/context/StateProvider";
+import { useNavigate } from "react-router-dom";
 
 
-export const NavBar = ({ onCreateClick }: { onCreateClick: () => void }) => {
+export const NavBar = () => {
   const { address } = useStateContext();
+  const navigate = useNavigate(); 
 
   const handleCreate = () => {
     if (!address) {
       toast("Please connect your wallet to create a campaign ⚡");
       return;
     }
-    onCreateClick();
+    // onCreateClick();
+    navigate("/createCampaign")
   };
 
   return (
