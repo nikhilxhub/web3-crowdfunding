@@ -19,6 +19,10 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
+import { useStateContext } from "@/context/StateProvider";
+import { useSendTransaction } from "thirdweb/react";
+import { toast } from "sonner";
+import { prepareContractCall } from "thirdweb";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -30,6 +34,10 @@ const formSchema = z.object({
 });
 
 export function CampaignForm() {
+
+  const { contract, address } = useStateContext();
+  const { mutate:sendTransaction } = useSendTransaction();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -45,9 +53,42 @@ export function CampaignForm() {
   const imageUrl = form.watch("campaignImage");
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("Form submitted:", values);
 
-    // complete this
+    if(!contract || !address){
+      console.error("contract or wallet missing");
+      toast.error("contract or wallet address might be missing");
+
+      return;
+    }
+
+    const transaction = prepareContractCall({
+      contract,
+      method: "function createCampaign(address,string,string,uint256,uint256,string) returns (uint256)",
+      params: [
+        address,
+        values.title,
+        values.description,
+        BigInt(values.target),
+        BigInt(values.deadline.getTime()), // convert date to timestamp
+        values.campaignImage,
+      ],
+    });
+    sendTransaction(transaction, {
+      onSuccess: () => {
+        console.log("Campaign created successfully");
+        toast.success("Campaign created successfully")
+        form.reset(); // optional: reset form after success
+      },
+      onError: (err) => {
+        toast.error("Transaction failed")
+        console.error("Transaction failed:", err);
+      },
+    });
+
+
+
+
+
 
     
   }

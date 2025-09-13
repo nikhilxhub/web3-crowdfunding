@@ -7,6 +7,7 @@ interface StateContextType {
   address?: string;
   balance?: string;
   symbol?: string;
+  contract?:any
 }
 
 const StateContext = createContext<StateContextType>({});
@@ -20,12 +21,11 @@ export const StateContextProvider = ({ children }: { children: ReactNode }) => {
   });
 
 
-  const contract = getContract({
+ const contract = getContract({
     client,
-    address:"0x...", //will update addrees
-    chain:chain
+    address: "0x5FbDB2315678afecb367f032d93F642f64180aa3", // your contract address
+    chain,
   });
-
 
   
 
@@ -46,6 +46,7 @@ export const StateContextProvider = ({ children }: { children: ReactNode }) => {
         address: account?.address,
         balance: balance?.displayValue,
         symbol: balance?.symbol,
+        contract
       }}
     >
       {children}
