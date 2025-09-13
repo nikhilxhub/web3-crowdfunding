@@ -1,5 +1,6 @@
 // Main.tsx
 import { CampaignForm } from "@/components/CreateCampaignForm";
+import DisplayCampaign from "@/components/DisplayCampaign";
 import {
   Card,
   CardHeader,
@@ -10,6 +11,9 @@ import {
 } from "@/components/ui/card";
 
 const Main = () => {
+
+  // get campaign
+
   return (
 
 
@@ -20,8 +24,14 @@ const Main = () => {
 
 
           {/* nrml component */}
-          👋 Welcome to CrowFund — click "Create Campaign" to get started!
+          👋 Welcome to CrowFund — click "Create Campaign" to  start your own Campaign!
         </div>
+        <div>
+
+          <DisplayCampaign />
+
+        </div>
+
       
     </div>
   );

@@ -23,6 +23,7 @@ import { useStateContext } from "@/context/StateProvider";
 import { useSendTransaction } from "thirdweb/react";
 import { toast } from "sonner";
 import { prepareContractCall } from "thirdweb";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -37,6 +38,7 @@ export function CampaignForm() {
 
   const { contract, address } = useStateContext();
   const { mutate:sendTransaction } = useSendTransaction();
+  const navigate = useNavigate(); 
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -78,6 +80,7 @@ export function CampaignForm() {
         console.log("Campaign created successfully");
         toast.success("Campaign created successfully")
         form.reset(); // optional: reset form after success
+        navigate("/main");
       },
       onError: (err) => {
         toast.error("Transaction failed")
