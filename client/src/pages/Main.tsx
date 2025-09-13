@@ -13,7 +13,7 @@ const Main = () => {
 <div className="px-4 sm:px-10 md:px-20 py-10 min-h-screen">
       {/* Welcome message centered */}
       <div className="text-center text-lg text-muted-foreground mb-10">
-        👋 Welcome to CrowFund — click "Create Campaign" to start your own Campaign!
+        👋 Welcome to CrowdFund — click "Create Campaign" to start your own Campaign!
       </div>
 
       {/* Campaigns section */}

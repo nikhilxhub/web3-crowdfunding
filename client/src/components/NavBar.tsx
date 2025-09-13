@@ -25,7 +25,7 @@ export const NavBar = () => {
   return (
     <nav className="flex justify-between items-center py-4 px-4 sm:px-10 md:px-20">
       <div className="flex flex-row text-4xl gap-2">
-        <Crown className="size-10" /> CrowFund
+        <Crown className="size-10" /> CrowdFund
       </div>
 
       <ConnectButton client={client} />
