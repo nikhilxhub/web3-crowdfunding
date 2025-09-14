@@ -28,11 +28,18 @@ export const NavBar = () => {
         <Crown className="size-10" /> CrowdFund
       </div>
 
+      <div className="flex gap-2">
+       
+
       <ConnectButton client={client} />
 
       <Button onClick={handleCreate}>Create Campaign</Button>
 
       <ThemeToggleButton />
+
+      </div>
+
+
     </nav>
   );
 };
