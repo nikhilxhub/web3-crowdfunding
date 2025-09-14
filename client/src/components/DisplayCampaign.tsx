@@ -19,9 +19,13 @@ const DisplayCampaign = () => {
     }
   }, [data]);
 
+  const handleNavigate = (id: number) => {
+    navigate(`/campaign/${id}`);
+  };
+
   return (
     <div className="mt-10 w-full">
-      <h1 className="font-semibold text-[18px] text-white text-left mb-6">
+      <h1 className="font-semibold text-[18px] text-left mb-6">
         All Campaigns ({campaigns.length})
       </h1>
 
@@ -58,7 +62,8 @@ const DisplayCampaign = () => {
                   {new Date(Number(campaign[4])).toLocaleDateString()}
                 </p>
                 <button
-                  onClick={() => navigate(`/donate/${index}`)}
+                  // onClick={() => navigate(`/donate/${index}`)}
+                  onClick={() => handleNavigate(index)}
                   className="mt-2 w-full bg-primary text-white py-2 rounded hover:bg-primary/90"
                 >
                   Donate

@@ -8,6 +8,7 @@ import { useState } from "react"
 import { StateContextProvider } from "./context/StateProvider"
 import { Toaster } from "sonner"
 import CreateCampaign from "./pages/CreateCampaign"
+import CampaignDetails from "./pages/CampaignDetails"
 
 
 
@@ -28,6 +29,7 @@ function App() {
             <Route path="/" element={<LandingPage/>} />
             <Route path="/main" element={<Main />} />
             <Route path="/createCampaign" element={<CreateCampaign />} />
+             <Route path="/campaign/:id" element={<CampaignDetails />} />
 
           </Routes>
       </BrowserRouter>
