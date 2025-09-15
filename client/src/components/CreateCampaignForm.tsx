@@ -70,7 +70,8 @@ export function CampaignForm() {
         address,
         values.title,
         values.description,
-        BigInt(values.target),
+        BigInt(Math.floor(Number(values.target) * 10 ** 18)),
+
         BigInt(values.deadline.getTime()), // convert date to timestamp
         values.campaignImage,
       ],
