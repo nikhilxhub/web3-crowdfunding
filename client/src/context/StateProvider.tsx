@@ -23,7 +23,8 @@ export const StateContextProvider = ({ children }: { children: ReactNode }) => {
 
  const contract = getContract({
     client,
-    address: "0x5FbDB2315678afecb367f032d93F642f64180aa3", // your contract address
+    // address: "0x58830b6f4549293577148e70F0C2Dbb5608Ea181", // your contract address
+    address: "0xb5Cd1Fa232698bB3976F97c63191Cb14B15D5F96", // your contract address
     chain,
   });
 

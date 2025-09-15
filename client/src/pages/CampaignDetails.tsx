@@ -13,8 +13,11 @@ const CampaignDetails: React.FC = () => {
 
   const { data: campaigns, isLoading } = useReadContract({
     contract,
-    method:
-      "function getCampaigns() view returns (tuple(address,string,string,uint256,uint256,uint256,string,address[],uint256[])[])",
+    // method:
+    //   "function getCampaigns() view returns (tuple(address,string,string,uint256,uint256,uint256,string,address[],uint256[])[])",
+
+    method: "function getCampaigns() view returns (address[],string[],string[],uint256[],uint256[],uint256[],string[])"
+
   }) as {
     data: Campaign[] | undefined;
     isLoading: boolean;
