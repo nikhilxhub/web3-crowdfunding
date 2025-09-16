@@ -35,6 +35,8 @@ export const NavBar = () => {
 
       <Button onClick={handleCreate}>Create Campaign</Button>
 
+      <Button onClick={() => navigate("/profile")}>Profile</Button>
+
       <ThemeToggleButton />
 
       </div>

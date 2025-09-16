@@ -9,6 +9,7 @@ import { StateContextProvider } from "./context/StateProvider"
 import { Toaster } from "sonner"
 import CreateCampaign from "./pages/CreateCampaign"
 import CampaignDetails from "./pages/CampaignDetails"
+import Profile from "./pages/Profile"
 
 
 
@@ -30,6 +31,7 @@ function App() {
             <Route path="/main" element={<Main />} />
             <Route path="/createCampaign" element={<CreateCampaign />} />
              <Route path="/campaign/:id" element={<CampaignDetails />} />
+             <Route path="/profile" element={<Profile />} />
 
           </Routes>
       </BrowserRouter>
