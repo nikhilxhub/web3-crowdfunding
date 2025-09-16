@@ -4,6 +4,7 @@ import { useStateContext } from "@/context/StateProvider";
 import { useReadContract, useSendTransaction } from "thirdweb/react";
 import { prepareContractCall } from "thirdweb";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 
 const CampaignDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -114,13 +115,13 @@ const CampaignDetails: React.FC = () => {
             onChange={(e) => setDonationAmount(e.target.value)}
             className="border rounded px-3 py-2 flex-1"
           />
-          <button
+          <Button
             onClick={handleDonate}
             disabled={isPending}
-            className="bg-primary text-white px-4 py-2 rounded hover:bg-primary/80 disabled:opacity-50"
+            
           >
             {isPending ? "Donating..." : "Donate"}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useStateContext } from "@/context/StateProvider";
 import { useReadContract } from "thirdweb/react";
+import { Button } from "./ui/button";
 
 const DisplayCampaign = () => {
   const { contract } = useStateContext();
@@ -121,13 +122,13 @@ const DisplayCampaign = () => {
                 {new Date(Number(campaign.deadline)).toLocaleDateString()}
               </p>
 
-              <button
+              <Button
                 // onClick={() => navigate(`/donate/${index}`)}
                 onClick={() => handleNavigate(index)}
-                className="mt-2 w-full bg-primary text-white py-2 rounded hover:bg-primary/90"
+                className="mt-2 w-full  py-6 rounded hover:bg-primary/90"
               >
                 Donate
-              </button>
+              </Button>
             </div>
             // </div>
           ))
