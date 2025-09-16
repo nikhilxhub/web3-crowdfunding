@@ -54,6 +54,8 @@ const CampaignDetails: React.FC = () => {
         contract,
         method: "function donateToCampaign(uint256 _id) payable",
         params: [Number(id)],
+        // value: BigInt((Number(donationAmount) * 1e18).toFixed(0)), // ETH → Wei
+
         value: BigInt(Math.floor(Number(donationAmount) * 10 ** 18)), // ETH → Wei
       });
 

@@ -54,23 +54,18 @@ contract CrowdFunding {
     }
 
     function donateToCampaign(uint256 _id) public payable {
-        uint256 amount = msg.value;
 
         Campaign storage campaign = campaigns[_id];
 
-
-        // donate to campaign
+        require(block.timestamp <=  campaign.deadline, "The campaign has ended");
+        require(campaign.amountCollected < campaign.target, "Them campaign has already reached its target");
+        require(msg.value > 0, "Donation amount must be greater than zero.");
         campaign.donators.push(msg.sender);
-        campaign.donations.push(amount);
+        campaign.donations.push(msg.value);
+        campaign.amountCollected += msg.value;
+        balances[_id] += msg.value;
 
-        (bool sent,) = payable(campaign.owner).call{value: amount}("");
-
-        if(sent){
-            campaign.amountCollected = campaign.amountCollected + amount;
-        }
-
-
-
+        emit DonationReceived(_id, msg.sender, msg.value);
 
     }
 
@@ -118,6 +113,19 @@ contract CrowdFunding {
         return (owners, titles, descriptions, targets, deadlines, amounts, images);
     }
 
+    function getCampaignStatus(uint256 _id) public view returns (string memory) {
+        Campaign storage campaign = campaigns[_id];
+
+        if (block.timestamp > campaign.deadline) {
+            if (campaign.amountCollected >= campaign.target) {
+                return "Successful";
+            } else {
+                return "Failed";
+            }
+        } else {
+            return "Ongoing";
+        }
+    }
 
 
 
