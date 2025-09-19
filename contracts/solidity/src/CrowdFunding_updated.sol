@@ -74,18 +74,20 @@ contract CrowdFunding {
         return (campaigns[_id].donators, campaigns[_id].donations);
     }
 
-    // function getCampaigns() public view returns (Campaign[] memory){
-    //     Campaign[] memory allCampaigns = new Campaign[](numberOfCampaigns);
+    function withdrawFunds(uint256 _id) public {
+        Campaign storage campaign = campaigns[_id];
+        uint256 amount = balances[_id];
 
-    //     for(uint i = 0; i < numberOfCampaigns; i++){
-    //         Campaign storage item = campaigns[i];
+        require(msg.sender == campaign.owner, "Only the owner can withdraw funds.");
+        require(amount > 0, "No funds available to withdraw.");
 
-    //         allCampaigns[i] = item;
-    //     }
+        balances[_id] = 0;
 
-    //     return allCampaigns;
+        (bool sent, ) = payable(campaign.owner).call{value: amount}("");
+        require(sent, "Withdrawal failed.");
 
-    // }
+        emit FundsWithdrawn(_id, campaign.owner, amount);
+    }
 
     function getCampaigns() public view returns (
         address[] memory, string[] memory, string[] memory,
