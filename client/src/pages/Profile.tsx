@@ -9,11 +9,18 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
 
 const Profile = () => {
   const { userCampaigns } = useStateContext();
 
   const isLoading = !userCampaigns;
+
+  // campaign pId
+  const handleWithdraw = () =>{
+
+
+  }
 
   return (
     <div className="p-6">
@@ -48,10 +55,22 @@ const Profile = () => {
                 </p>
               </CardContent>
 
-              <CardFooter className="flex justify-between text-sm text-muted-foreground">
-                <span>Deadline: {new Date(campaign.deadline * 1000).toLocaleDateString()}</span>
-                <span>Raised: Ξ{campaign.amountCollected}</span>
+              <CardFooter className="flex flex-col">
+                <div className="flex justify-between w-full text-sm text-muted-foreground">
+                  <span>Deadline: {new Date(campaign.deadline * 1000).toLocaleDateString()}</span>
+                  <span>Raised: Ξ{campaign.amountCollected}</span>
+                </div>
+
+      
+                  <Button
+                    onClick={() => handleWithdraw()}
+                    className="mt-2 w-full py-4 rounded hover:bg-primary/90"
+                  >
+                    withdraw
+                  </Button>
+                
               </CardFooter>
+
             </Card>
           ))}
       </div>
