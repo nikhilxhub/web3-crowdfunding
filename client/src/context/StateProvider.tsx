@@ -1,9 +1,10 @@
 import React, { createContext, useContext } from "react";
 import type { ReactNode } from "react";
-import { useActiveAccount, useWalletBalance, useReadContract } from "thirdweb/react";
+import { useActiveAccount, useWalletBalance, useReadContract, useSendTransaction } from "thirdweb/react";
 import { client, chain } from "../client";
-import { getContract } from "thirdweb";
+import { getContract, prepareContractCall } from "thirdweb";
 import { formatEther } from "ethers";
+import { toast } from "sonner";
 
 interface Campaign {
   owner: string;
@@ -22,6 +23,7 @@ interface StateContextType {
   symbol?: string;
   contract?: any;
   userCampaigns?: Campaign[];
+  withdrawFunds?:(pId: number) => Promise<void>;
 }
 
 const StateContext = createContext<StateContextType>({});
@@ -46,6 +48,27 @@ export const StateContextProvider = ({ children }: { children: ReactNode }) => {
     params: [],
   });
 
+  // withdraw
+  const { mutateAsync: sendTx } = useSendTransaction();
+  const withdrawFunds = async (pId: number) =>{
+    try{
+      const tx = prepareContractCall({
+        contract,
+        method:"function withdrawFunds(uint256 _id)",
+        // @ts-ignore
+        params: [pId],
+      });
+
+      await sendTx(tx);
+      toast.success("Withdrawal successful!");
+
+    }catch(e){
+      console.error("withdrawal failed:", e);
+      toast.error("Withdrawal failed...check console");
+
+    }
+  }
+
   const userCampaigns: Campaign[] | undefined = campaignsData
     ? campaignsData[0].map((owner: string, i: number) => ({
         owner,
@@ -67,6 +90,7 @@ export const StateContextProvider = ({ children }: { children: ReactNode }) => {
         symbol: balance?.symbol,
         contract,
         userCampaigns,
+        withdrawFunds
       }}
     >
       {children}

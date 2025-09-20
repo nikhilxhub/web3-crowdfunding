@@ -45,8 +45,7 @@ contract CrowdFunding {
         campaign.image = _image;
 
 
-        emit CampaignCreated(numberOfCampaigns, msg.sender, _title, _target, _deadline);
-
+        emit CampaignCreated(numberOfCampaigns, msg.sender, _title, _target, _deadline);    
         numberOfCampaigns++;
 
         // newly created campaign is stored at index

@@ -12,15 +12,14 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 
 const Profile = () => {
-  const { userCampaigns } = useStateContext();
+  const { userCampaigns, withdrawFunds } = useStateContext();
 
   const isLoading = !userCampaigns;
 
-  // campaign pId
-  const handleWithdraw = () =>{
-
-
-  }
+  const handleWithdraw = async (pId: number) => {
+    if (!withdrawFunds) return;
+    await withdrawFunds(pId);
+  };
 
   return (
     <div className="p-6">
@@ -33,14 +32,21 @@ const Profile = () => {
           ))}
 
         {!isLoading && userCampaigns?.length === 0 && (
-          <p className="text-muted-foreground">You haven’t created any campaigns yet.</p>
+          <p className="text-muted-foreground">
+            You haven’t created any campaigns yet.
+          </p>
         )}
 
         {!isLoading &&
           userCampaigns?.map((campaign) => (
-            <Card key={campaign.pId} className="hover:shadow-lg transition-shadow">
+            <Card
+              key={campaign.pId}
+              className="hover:shadow-lg transition-shadow"
+            >
               <CardHeader className="space-y-2">
-                <CardTitle className="text-lg font-semibold">{campaign.title}</CardTitle>
+                <CardTitle className="text-lg font-semibold">
+                  {campaign.title}
+                </CardTitle>
                 <Badge variant="outline">Target: {campaign.target}</Badge>
               </CardHeader>
 
@@ -57,20 +63,20 @@ const Profile = () => {
 
               <CardFooter className="flex flex-col">
                 <div className="flex justify-between w-full text-sm text-muted-foreground">
-                  <span>Deadline: {new Date(campaign.deadline * 1000).toLocaleDateString()}</span>
+                  <span>
+                    Deadline:{" "}
+                    {new Date(campaign.deadline * 1000).toLocaleDateString()}
+                  </span>
                   <span>Raised: Ξ{campaign.amountCollected}</span>
                 </div>
 
-      
-                  <Button
-                    onClick={() => handleWithdraw()}
-                    className="mt-2 w-full py-4 rounded hover:bg-primary/90"
-                  >
-                    withdraw
-                  </Button>
-                
+                <Button
+                  onClick={() => handleWithdraw(campaign.pId)}
+                  className="mt-2 w-full py-4 rounded hover:bg-primary/90"
+                >
+                  Withdraw
+                </Button>
               </CardFooter>
-
             </Card>
           ))}
       </div>
