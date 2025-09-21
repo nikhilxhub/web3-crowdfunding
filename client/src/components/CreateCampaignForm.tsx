@@ -63,19 +63,31 @@ export function CampaignForm() {
       return;
     }
 
+    // const transaction = prepareContractCall({
+    //   contract,
+    //   method: "function createCampaign(address,string,string,uint256,uint256,string) returns (uint256)",
+    //   params: [
+    //     address,
+    //     values.title,
+    //     values.description,
+    //     BigInt(Math.floor(Number(values.target) * 10 ** 18)),
+
+    //     BigInt(values.deadline.getTime()), // convert date to timestamp
+    //     values.campaignImage,
+    //   ],
+    // });
     const transaction = prepareContractCall({
       contract,
-      method: "function createCampaign(address,string,string,uint256,uint256,string) returns (uint256)",
+      method: "function createCampaign(string,string,uint256,uint256,string) returns (uint256)",
       params: [
-        address,
         values.title,
         values.description,
-        BigInt(Math.floor(Number(values.target) * 10 ** 18)),
-
-        BigInt(values.deadline.getTime()), // convert date to timestamp
+        BigInt(Math.floor(Number(values.target) * 10 ** 18)), // target in wei
+        BigInt(Math.floor(values.deadline.getTime() / 1000)), // convert ms -> seconds
         values.campaignImage,
       ],
     });
+
     sendTransaction(transaction, {
       onSuccess: () => {
         console.log("Campaign created successfully");
@@ -88,11 +100,6 @@ export function CampaignForm() {
         console.error("Transaction failed:", err);
       },
     });
-
-
-
-
-
 
     
   }
