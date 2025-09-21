@@ -10,9 +10,12 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
+import { ArrowBigLeft, ArrowLeftCircleIcon, ArrowLeftIcon } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const { userCampaigns, withdrawFunds } = useStateContext();
+  const navigate = useNavigate();
 
   const isLoading = !userCampaigns;
 
@@ -22,8 +25,19 @@ const Profile = () => {
   };
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">Your Campaigns</h2>
+    <div className="container mx-auto px-4 py-6">
+      {/* in a container like */}
+      {/* with arrow left lucide react icon button */}
+      <div className="flex items-center gap-2 mb-6">
+        <Button variant="ghost" size="icon" className="rounded-full"
+          onClick={ () =>{
+            navigate("/main");
+          }}
+        >
+          <ArrowLeftIcon className="h-5 w-5" />
+        </Button>
+        <h2 className="text-2xl font-bold">Your Campaigns</h2>
+      </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {isLoading &&
