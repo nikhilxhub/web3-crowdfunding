@@ -2,14 +2,17 @@ import { Button } from '@/components/ui/button'
 import { ArrowRight, Globe, Shield, Zap } from 'lucide-react'
 import React from 'react'
 
+
 const LandingPage = () => {
+
+
   return (
     <div>
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url("/public/background1.jpg")' }}
+          style={{ backgroundImage: 'url("/background1.jpg")' }}
         >
           {/* Optional dark overlay for readability */}
           <div className="absolute inset-0 bg-black/40" />
@@ -37,7 +40,11 @@ const LandingPage = () => {
 
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-12">
-              <Button size="lg">
+              <Button size="lg"
+                onClick={() => {
+    window.location.href = "/main"
+  }}
+              >
                 Start Exploring
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
