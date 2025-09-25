@@ -1,40 +1,37 @@
+// FILE: src/components/DisplayCampaigns.tsx
+
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useStateContext } from "@/context/StateProvider";
 import { useReadContract } from "thirdweb/react";
-import { Button } from "./ui/button";
+import { CampaignCard, CampaignCardSkeleton } from "./CampaignCard"; // We will create this
+import { Frown } from "lucide-react";
 
-const DisplayCampaign = () => {
+// Define a type for our campaign object for better type safety
+export interface Campaign {
+  owner: string;
+  title: string;
+  description: string;
+  target: bigint;
+  deadline: bigint;
+  amountCollected: bigint;
+  image: string;
+}
+
+const DisplayCampaigns: React.FC = () => {
   const { contract } = useStateContext();
-  console.log("contract:", contract);
-
-  const [campaigns, setCampaigns] = useState<any[]>([]);
-  const navigate = useNavigate();
+  const [campaigns, setCampaigns] = useState<Campaign[]>([]);
 
   const { data, isLoading } = useReadContract({
     contract,
-    // method: "getCampaigns()"
-    // method: "function getCampaigns() view returns (tuple(address,string,string,uint256,uint256,uint256,string,address[],uint256[])[])"
     method: "function getCampaigns() view returns (address[],string[],string[],uint256[],uint256[],uint256[],string[])"
-
-    // method: " getCampaigns() view returns (tuple(address,string,string,uint256,uint256,uint256,string,address[],uint256[])[])",
   });
-  console.log(data);
-
-
-
-  // useEffect(() => {
-  //   if (data) {
-  //     setCampaigns(Array.isArray(data) ? data : [data]);
-
-  //   }
-  // }, [data]);
 
   useEffect(() => {
     if (data && Array.isArray(data) && data.length === 7) {
       const [owners, titles, descriptions, targets, deadlines, amounts, images] = data;
 
-      const reconstructed = owners.map((_, i) => ({
+      // Reconstruct the data into an array of campaign objects
+      const reconstructedCampaigns: Campaign[] = owners.map((_, i) => ({
         owner: owners[i],
         title: titles[i],
         description: descriptions[i],
@@ -44,98 +41,52 @@ const DisplayCampaign = () => {
         image: images[i],
       }));
 
-      setCampaigns(reconstructed);
+      setCampaigns(reconstructedCampaigns);
     }
   }, [data]);
 
+  const renderContent = () => {
+    // 1. Loading State: Show skeleton loaders
+    if (isLoading) {
+      return Array(6).fill(0).map((_, index) => (
+        <CampaignCardSkeleton key={index} />
+      ));
+    }
+    
+    // 2. Empty State: Show a user-friendly message
+    if (campaigns.length === 0) {
+      return (
+        <div className="col-span-1 sm:col-span-2 md:col-span-3 flex flex-col items-center justify-center text-center bg-card border rounded-lg p-12">
+            <Frown className="h-12 w-12 text-muted-foreground mb-4" />
+            <h2 className="text-xl font-semibold">No Campaigns Found</h2>
+            <p className="text-muted-foreground mt-1">
+                There are currently no active campaigns. Why not create one?
+            </p>
+        </div>
+      );
+    }
 
-
-  console.log("typeof data:", typeof data);
-  console.log("isArray:", Array.isArray(data));
-  console.log("data:", data);
-
-
-  const handleNavigate = (id: number) => {
-    navigate(`/campaign/${id}`);
+    // 3. Success State: Show the campaign cards
+    return campaigns.map((campaign, index) => (
+      <CampaignCard
+        key={index}
+        id={index}
+        campaign={campaign}
+      />
+    ));
   };
 
   return (
-    <div className="mt-10 w-full">
-      <h1 className="font-semibold text-[18px] text-left mb-6">
-        All Campaigns ({campaigns.length})
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold text-left mb-8">
+        All Campaigns ({isLoading ? "..." : campaigns.length})
       </h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {isLoading ? (
-          <p className="text-muted-foreground">Loading campaigns...</p>
-        ) : campaigns.length === 0 ? (
-          <p className="text-muted-foreground">No campaigns found.</p>
-        ) : (
-          campaigns.map((campaign, index) => (
-            <div
-              key={index}
-              className="bg-card rounded-lg shadow-md overflow-hidden border border-muted"
-            >
-              {/* <img
-                src={campaign[6]}
-                alt={campaign[1]}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-4 space-y-2">
-                <h2 className="text-lg font-bold">{campaign[1]}</h2>
-                <p className="text-sm text-muted-foreground">
-                  {campaign[2].slice(0, 80)}...
-                </p>
-                <p className="text-sm">
-                  <strong>Creator:</strong> {campaign[0].slice(0, 10)}...
-                </p>
-                <p className="text-sm">
-                  <strong>Raised:</strong>{" "}
-                  {Number(campaign[5]) / 10 ** 18} ETH
-                </p>
-                <p className="text-sm">
-                  <strong>Deadline:</strong>{" "}
-                  {new Date(Number(campaign[4])).toLocaleDateString()}
-                </p> */}
-
-
-              {/* new code */}
-
-              <img
-                src={campaign.image}
-                alt={campaign.title}
-                className="w-full h-48 object-cover"
-              />
-              <h2 className="text-lg font-bold">{campaign.title}</h2>
-              <p className="text-sm text-muted-foreground">
-                {campaign.description.slice(0, 80)}...
-              </p>
-              <p className="text-sm">
-                <strong>Creator:</strong> {campaign.owner.slice(0, 10)}...
-              </p>
-              <p className="text-sm">
-                <strong>Raised:</strong>{" "}
-                {Number(campaign.amountCollected) / 10 ** 18} ETH
-              </p>
-              <p className="text-sm">
-                <strong>Deadline:</strong>{" "}
-                {new Date(Number(campaign.deadline)).toLocaleDateString()}
-              </p>
-
-              <Button
-                // onClick={() => navigate(`/donate/${index}`)}
-                onClick={() => handleNavigate(index)}
-                className="mt-2 w-full  py-6 rounded hover:bg-primary/90"
-              >
-                Donate
-              </Button>
-            </div>
-            // </div>
-          ))
-        )}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {renderContent()}
       </div>
     </div>
   );
 };
 
-export default DisplayCampaign;
+export default DisplayCampaigns;
