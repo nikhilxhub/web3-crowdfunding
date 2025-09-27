@@ -15,7 +15,7 @@ const LandingPage = () => {
           style={{ backgroundImage: 'url("/background1.jpg")' }}
         >
           {/* Optional dark overlay for readability */}
-          <div className="absolute inset-0 bg-black/40" />
+          {/* <div className="absolute inset-0 bg-black/40" /> */}
         </div>
 
         {/* Content */}
@@ -24,7 +24,7 @@ const LandingPage = () => {
             {/* Badge */}
             <div className="inline-flex items-center space-x-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-2 text-sm text-primary mb-8 backdrop-blur-sm">
               <Zap className="w-4 h-4" />
-              <span>Powered by Blockchain Technology</span>
+              <span>#1 CrowdFunding Platform</span>
             </div>
 
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
