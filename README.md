@@ -51,7 +51,6 @@ SECRET_KEY=your_secret_key
 - `getCampaigns()`: Returns all campaigns
 - `getDonators(campaignId)`: Lists contributors for a campaign
 - `withdrawFunds(campaignId)`: Allows campaign owner to withdraw funds
-- `refundDonors(campaignId)`: Refunds contributors if target not met
 
 # Start local dev server
 npm run dev
