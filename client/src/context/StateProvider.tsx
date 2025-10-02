@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from "react";
+import { createContext, useContext } from "react";
 import type { ReactNode } from "react";
 import { useActiveAccount, useWalletBalance, useReadContract, useSendTransaction } from "thirdweb/react";
 import { client, chain } from "../client";

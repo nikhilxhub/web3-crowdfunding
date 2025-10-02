@@ -1,4 +1,4 @@
-import React from "react";
+
 import { Crown, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { ConnectButton } from "thirdweb/react";
@@ -7,7 +7,7 @@ import { useStateContext } from "@/context/StateProvider";
 
 import { Button } from "./ui/button";
 import ThemeToggleButton from "./ui/theme-toggle-button";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+
 import { MobileMenu } from "./MobileMenu"; // <-- Import the new component
 
 export const NavBar = () => {

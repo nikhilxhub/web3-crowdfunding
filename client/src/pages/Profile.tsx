@@ -1,4 +1,4 @@
-import React from "react";
+
 import { useStateContext } from "@/context/StateProvider";
 import {
   Card,
@@ -10,7 +10,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
-import { ArrowBigLeft, ArrowLeftCircleIcon, ArrowLeftIcon } from "lucide-react";
+import {  ArrowLeftIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Profile = () => {

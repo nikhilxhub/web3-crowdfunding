@@ -22,7 +22,8 @@ interface CampaignCardProps {
 }
 
 // --- Helper Functions ---
-const truncateAddress = (address: string) => `${address.slice(0, 6)}...${address.slice(-4)}`;
+// const truncateAddress = (address: string) => `${address.slice(0, 6)}...${address.slice(-4)}`;
+
 const calculateDaysLeft = (deadline: bigint) => {
   const difference = new Date(Number(deadline) * 1000).getTime() - new Date().getTime();
   if (difference <= 0) return { text: "Ended", value: 0 };
