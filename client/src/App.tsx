@@ -19,7 +19,7 @@ const AppRoutes = () => {
     <>
       {!hideNavbar && <NavBar />}
       <Routes>
-        <Route path="/main" element={<Main />} />
+        <Route path="/Main" element={<Main />} />
         <Route path="/createCampaign" element={<CreateCampaign />} />
         <Route path="/campaign/:id" element={<CampaignDetails />} />
         <Route path="/profile" element={<Profile />} />
