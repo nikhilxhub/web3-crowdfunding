@@ -42,7 +42,7 @@ const LandingPage = () => {
             <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-12">
               <Button size="lg"
                 onClick={() => {
-    window.location.href = "/main"
+    window.location.href = "/Main"
   }}
               >
                 Start Exploring
@@ -50,7 +50,7 @@ const LandingPage = () => {
               </Button>
               <Button variant="outline" size="lg" 
               onClick={() => {
-    window.location.href = "/main"
+    window.location.href = "/Main"
   }}>
                 Create Campaign
               </Button>
