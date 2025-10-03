@@ -17,7 +17,7 @@ export interface Campaign {
   image: string;
 }
 
-const DisplayCampaigns: React.FC = () => {
+const DisplayCampaign: React.FC = () => {
   const { contract } = useStateContext();
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
 
@@ -89,4 +89,4 @@ const DisplayCampaigns: React.FC = () => {
   );
 };
 
-export default DisplayCampaigns;
+export default DisplayCampaign;
