@@ -1,6 +1,8 @@
 // Main.tsx
 
-import DisplayCampaign from "@/components/DisplayCampaign";
+import DisplayCampaigns from "../components/DisplayCampaign";
+
+// import DisplayCampaign from "@/components/DisplayCampaign";
 
 
 const Main = () => {
@@ -17,7 +19,7 @@ const Main = () => {
       </div>
 
       {/* Campaigns section */}
-      <DisplayCampaign />
+      <DisplayCampaigns />
     </div>
 
   );
