@@ -48,7 +48,10 @@ const LandingPage = () => {
                 Start Exploring
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
-              <Button variant="outline" size="lg">
+              <Button variant="outline" size="lg" 
+              onClick={() => {
+    window.location.href = "/main"
+  }}>
                 Create Campaign
               </Button>
             </div>
