@@ -1,10 +1,17 @@
-import { Button } from '@/components/ui/button'
-import { ArrowRight, Globe, Shield, Zap } from 'lucide-react'
-import React from 'react'
+// src/pages/LandingPage.tsx
+
+"use client";
+
+import { Button } from '@/components/ui/button';
+import { ArrowRight, Globe, Shield, Zap } from 'lucide-react';
+import React from 'react';
+// 1. Import useNavigate from react-router-dom
+import { useNavigate } from 'react-router-dom';
 
 
 const LandingPage = () => {
-
+  // 2. Initialize the navigate function
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -14,8 +21,6 @@ const LandingPage = () => {
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: 'url("/background1.jpg")' }}
         >
-          {/* Optional dark overlay for readability */}
-          {/* <div className="absolute inset-0 bg-black/40" /> */}
         </div>
 
         {/* Content */}
@@ -40,18 +45,12 @@ const LandingPage = () => {
 
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-12">
-              <Button size="lg"
-                onClick={() => {
-    window.location.href = "/Main"
-  }}
-              >
+              {/* 3. Use navigate() for client-side routing. No more full page reloads! */}
+              <Button size="lg" onClick={() => navigate("/Main")}>
                 Start Exploring
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
-              <Button variant="outline" size="lg" 
-              onClick={() => {
-    window.location.href = "/Main"
-  }}>
+              <Button variant="outline" size="lg" onClick={() => navigate("/createCampaign")}>
                 Create Campaign
               </Button>
             </div>
@@ -82,4 +81,4 @@ const Feature = ({ icon, title, description }: { icon: React.ReactNode; title: s
   </div>
 )
 
-export default LandingPage
+export default LandingPage;
